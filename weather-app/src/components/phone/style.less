@@ -2,7 +2,6 @@
 
 .container {
 	display: flex;
-	flex-direction: column;
 	background-color: #efeae7;
 	color: #fff;
 	width: 414px;
@@ -11,31 +10,44 @@
 	margin: 0 auto;
 }
 .header {
-	display: flex;
-	flex-direction: column;
-	flex: 1;
+	display: block;
 }
 .details {
 	flex: 4;
 }
 .city {
 	flex: 1;
-	font-size: 1.7em;
+	font-size: 15px;
+	color: #ba4444;
 	font-weight: 400;
+	margin-top: 22.5px;
+	margin-left: 175px;
+	width: auto;
+	height:15px;
+
 }
 .conditions {
 	flex: 1;
 	font-size: 1em;
 }
 .temperature {
-	flex: 2;
-	margin-top: 0;
+	display:block;
 	font-size: 4.8em;
 	font-weight: 300;
-	letter-spacing: 0px;
+	letter-spacing: -5px;
+
+
+}
+.month{
+	display:block;
+	color: #ba4444;
+	height: 35px;
+	margin-top: 15px;
+	margin-left: 10px;
+	font-size: 30px;
 }
 .filled:after {
-	content: "°";
+	content: "°C";
 	margin: 0 0 0 1rem;
 	font-size: 0.5em;
 	font-weight: 100;

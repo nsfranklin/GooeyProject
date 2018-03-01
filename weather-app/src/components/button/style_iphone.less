@@ -1,16 +1,19 @@
 @import '~style/helpers';
 
 .container {
-	display: flex;
+	display: block;
 	justify-content: center;
-	margin-top: 100px;
+	width:60px;
+	height: 420px;
+	margin-bottom: 400px;
 }
 .container button {
 	margin: 0 auto;
-	font-size: 2.5rem;
-	padding: 2rem 3rem;
 	display: block;
-	background: #D1C3BB;
+	width: 60px;
+	height: 60px;
+	font-size: 30px;
+	background: #333344;
 	border: 1px solid #fff;
 	color: #fff;
 	font-weight: 300;
@@ -18,7 +21,12 @@
 	transition: all 0.3s ease-in-out;
 }
 .container button:hover {
-	background: #fff;
+	background: #595986;
+	color: #D1C3BB;
+	border: 1px solid transparent;
+}
+.container button:focus {
+	background: #ba4444;
 	color: #D1C3BB;
 	border: 1px solid transparent;
 }
