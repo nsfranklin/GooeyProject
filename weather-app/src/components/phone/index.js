@@ -29,7 +29,7 @@ export default class phone extends Component {
 	}
 
 	fetchWeatherDataHistory = () => {
-		var url = "http://api.wunderground.com/api/03cd34b98761d6d4/history_20180220/q/zmw:"+this.state.zmw+".json";
+		var url = "http://api.wunderground.com/api/03cd34b98761d6d4/history_"+ this.state.date +"/q/zmw:"+this.state.zmw+".json";
 		$.ajax({
 			url: url,
 			dataType: "jsonp",
@@ -52,7 +52,15 @@ export default class phone extends Component {
 	handleClick(param, e)
 	{
 		console.log(param);
+		//console.log(this.state.date);
 		console.log(e);
+		this.setState({date : param});
+		this.fetchWeatherDataHistory();
+	}
+
+	getWeatherFormat(date)
+	{
+		return date.getDate()+ (date.getMonth() + 1) + date.getFullYear();
 	}
 
 	render() {
@@ -74,6 +82,11 @@ export default class phone extends Component {
 			var datep3 = new Date(date.setTime( date.getTime() + 3 * 86400000 ));
 			var month = "FEB";
 
+			//datem3.getDate()+ (datem3.getMonth() + 1) + datem3.getFullYear()
+			var dates1 = datem1.getFullYear()+ "" + ("0" + (datem1.getMonth() + 1)).slice(-2)+ "" + ("0" + (datem1.getDate())).slice(-2)+ "";
+			var dates2 = datem2.getFullYear()+ "" + ("0" + (datem2.getMonth() + 1)).slice(-2)+ "" + ("0" + (datem2.getDate())).slice(-2)+ "";
+			var dates3 = datem3.getFullYear()+ "" + ("0" + (datem3.getMonth() + 1)).slice(-2)+ "" + ("0" + (datem3.getDate())).slice(-2)+ "";
+
 
 
 		return (
@@ -81,9 +94,9 @@ export default class phone extends Component {
 				<div class={ style.container }>
 				<div class= { style_iphone.container }>
 				{ this.state.display ? <Button number={ "S" }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataForecast }/ > : null }
-					{ this.state.display ? <Button number={ datem3.getDate() } date={ this.state.date }  class={ style_iphone.button } clickFunction={ this.handleClick.bind(this,datem3.getDate()) }/ > : null }
-					{ this.state.display ? <Button number={ datem2.getDate() }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataHistory }/ > : null }
-					{ this.state.display ? <Button number={ datem1.getDate() }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataHistory }/ > : null }
+					{ this.state.display ? <Button number={ datem3.getDate() } class={ style_iphone.button } clickFunction={  this.handleClick.bind(this, dates3) }/ > : null }
+					{ this.state.display ? <Button number={ datem2.getDate() }  class={ style_iphone.button } clickFunction={  this.handleClick.bind(this, dates2) }/ > : null }
+					{ this.state.display ? <Button number={ datem1.getDate() }  class={ style_iphone.button } clickFunction={  this.handleClick.bind(this, dates1) }/ > : null }
 					{ this.state.display ? <Button number={ today.getDate()  }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataCurrent }/ > : null }
 					{ this.state.display ? <Button number={ datep1.getDate() }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataForecast }/ > : null }
 					{ this.state.display ? <Button number={ datep2.getDate() }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataForecast }/ > : null }
