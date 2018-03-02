@@ -12,7 +12,7 @@ export default class phone extends Component {
 		this.state.date = "";
 		this.state.history="20180220";
 		this.state.hourly = "";
-		this.state.days = 0;
+		this.state.days = "";
 		this.fetchWeatherDataCurrent();
 		this.setState({ display: true });
 	}
@@ -36,6 +36,7 @@ export default class phone extends Component {
 			success : this.parseResponseHistory,
 			error : function(req, err){ console.log('API call failed ' + err); }
 		})
+		console.log(this.state.date);
 	}
 
 	fetchWeatherDataForecast = () => {
@@ -47,7 +48,7 @@ export default class phone extends Component {
 			error : function(req, err){ console.log('API call failed ' + err); }
 		})
 	}
-	
+
 	handleClick = (e) =>
 	{
 		console.log(e);
@@ -55,7 +56,7 @@ export default class phone extends Component {
 
 	render() {
 		const tempStyles = this.state.temp ? `${style.temperature} ${style.filled}` : style.temperature;
-		
+
 			var date = new Date();
 			var today = new Date(date.setTime( date.getTime() + 0 * 86400000 ));
 			var date = new Date();
@@ -71,15 +72,15 @@ export default class phone extends Component {
 			var date = new Date();
 			var datep3 = new Date(date.setTime( date.getTime() + 3 * 86400000 ));
 			var month = "FEB";
-			
-			
+
+
 
 		return (
 
 				<div class={ style.container }>
 				<div class= { style_iphone.container }>
 				{ this.state.display ? <Button number={ "S" }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataForecast }/ > : null }
-					{ this.state.display ? <Button number={ datem3.getDate() }   class={ style_iphone.button } clickFunction={ this.fetchWeatherDataHistory }/ > : null }
+					{ this.state.display ? <Button number={ datem3.getDate() } date={ this.state.date }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataHistory }/ > : null }
 					{ this.state.display ? <Button number={ datem2.getDate() }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataHistory }/ > : null }
 					{ this.state.display ? <Button number={ datem1.getDate() }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataHistory }/ > : null }
 					{ this.state.display ? <Button number={ today.getDate()  }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataCurrent }/ > : null }
@@ -91,9 +92,9 @@ export default class phone extends Component {
 				<div class={ style.city }>{ this.state.locate }</div>
 				<div class={ style.temperature }>{ this.state.temp }</div>
 				<div class={ style.temperature }>{ this.state.cond }</div>
-					
+
 					<div class={ style.details }></div>
-					
+
 				</div>
 			);
 		}
@@ -130,7 +131,7 @@ export default class phone extends Component {
 		this.setState({
 			cond : conditions,
 			temp: temp_c
-			
+
 		});
 	}
 }

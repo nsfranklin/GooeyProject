@@ -1,5 +1,6 @@
 // import preact
 import { h, render, Component } from 'preact';
+import phone from '../phone'
 
 export default class Button extends Component {
 
@@ -10,6 +11,7 @@ export default class Button extends Component {
 				console.log("passed something as 'clickFunction' that wasn't a function !");
 			}
 		}
+		phone.setState({date : this.props.number});
 		return (
 			<div>
 				<button onClick={clickFunction}>
