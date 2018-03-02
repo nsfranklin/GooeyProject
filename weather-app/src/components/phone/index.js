@@ -49,8 +49,9 @@ export default class phone extends Component {
 		})
 	}
 
-	handleClick = (e) =>
+	handleClick(param, e)
 	{
+		console.log(param);
 		console.log(e);
 	}
 
@@ -80,7 +81,7 @@ export default class phone extends Component {
 				<div class={ style.container }>
 				<div class= { style_iphone.container }>
 				{ this.state.display ? <Button number={ "S" }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataForecast }/ > : null }
-					{ this.state.display ? <Button number={ datem3.getDate() } date={ this.state.date }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataHistory }/ > : null }
+					{ this.state.display ? <Button number={ datem3.getDate() } date={ this.state.date }  class={ style_iphone.button } clickFunction={ this.handleClick.bind(this,datem3.getDate()) }/ > : null }
 					{ this.state.display ? <Button number={ datem2.getDate() }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataHistory }/ > : null }
 					{ this.state.display ? <Button number={ datem1.getDate() }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataHistory }/ > : null }
 					{ this.state.display ? <Button number={ today.getDate()  }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataCurrent }/ > : null }
