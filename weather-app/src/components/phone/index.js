@@ -15,13 +15,14 @@ export default class phone extends Component {
 		super(props);
 		this.state.zmw="00000.40.03779";
 		this.state.date = "";
-		this.state.hourly = "";
-		this.state.days = "";
 		this.state.monthString = monthNames[(date.getMonth())];
 		this.state.locationString = "location";
 		this.state.showSearch = false;
 		this.state.test = "";
 		this.fetchWeatherDataCurrent();
+		this.state.searchTerm = "";
+		this.state.searchList = new Array(20);
+		this.state.current = "current";
 		this.setState({ display: true });
 	}
 
@@ -123,7 +124,7 @@ export default class phone extends Component {
 					<Button number={ datep3.getDate() }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 3) }/ >
 				</div>
 				<Button number={ this.state.locationString } class={ style.searchT } clickFunction={ this.toggleSearch.bind(this) }/>
-				{this.state.showSearch ? <Search class = { style.popup } ting={this.doSomething.bind(this)} text='Close Me' closePopup={this.toggleSearch.bind(this)} /> : null }
+				{this.state.showSearch ? <Search class = { style.popup } setzmw = { this.setZmwFromSearch.bind(this) } other = { this.state.searchList } ting={this.doSomething.bind(this)} text='Close Me' closePopup={this.toggleSearch.bind(this)} /> : null }
 				<div class={ style.month }>{ this.state.monthString }{this.state.test}</div>
 				<div class={ style.city }>{ this.state.locate }</div>
 				<div class={ style.temperature }>{ this.state.temp }</div>
@@ -138,8 +139,44 @@ export default class phone extends Component {
 
 		doSomething(arg)
 		{
-			this.setState({ test : arg });
+			this.setState({ searchTerm : arg });
+			this.fetchSearchResults();
 		}
+
+		setZmwFromSearch(arg)
+		{
+			this.setState({ zmw : arg });
+			if(this.state.current == "current")
+			{
+				this.fetchWeatherDataCurrent();
+			}
+			else
+			{
+				this.fetchWeatherDataForecast();
+			}
+		}
+
+
+		fetchSearchResults = () => {
+			var url = "http://autocomplete.wunderground.com/aq?query="+this.state.searchTerm;
+			console.log(url);
+			$.ajax({
+				url: url,
+				dataType: "jsonp",
+				jsonp: "cb",
+				success : this.parseSearchList,
+				error : function(req, err)
+				{ console.log('API call failed ' + err);
+					setTimeout(this.fetchSearchResults(), 500);
+			 }
+			})
+		}
+
+
+		parseSearchList = (parsed_json) => {
+			this.setState({ searchList : parsed_json['RESULTS'] });
+		}
+
 
 	parseResponseConditions = (parsed_json) => {
 		this.setState({monthString : monthNames[date.getMonth()]});
@@ -151,9 +188,11 @@ export default class phone extends Component {
 			temp : temp_c,
 			cond : conditions
 		});
+		this.setState({ current : "current" });
 	}
 
 	parseResponseHistory = (parsed_json) => {
+		console.log(parsed_json);
 		var currentTime = new Date();
 		console.log(currentTime.getHours());
 		var observations = parsed_json['history']['observations'];
@@ -189,5 +228,6 @@ export default class phone extends Component {
 			temp: temp_c
 
 		});
+		this.setState({ current : "forecast" });
 	}
 }
