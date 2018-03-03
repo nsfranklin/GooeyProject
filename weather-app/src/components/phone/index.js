@@ -4,15 +4,19 @@ import style_iphone from '../button/style_iphone';
 import $ from 'jquery';
 import Button from '../button';
 
+const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",  "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+
 export default class phone extends Component {
 
 	constructor(props){
+		var date = new Date();
 		super(props);
 		this.state.zmw="00000.40.03779";
 		this.state.date = "";
-		this.state.history="20180220";
 		this.state.hourly = "";
 		this.state.days = "";
+		this.state.monthString = monthNames[(date.getMonth())];
+		this.state.locationString = "";
 		this.fetchWeatherDataCurrent();
 		this.setState({ display: true });
 	}
@@ -49,13 +53,20 @@ export default class phone extends Component {
 		})
 	}
 
-	handleClick(param, e)
+	handleHistoryClick(param, e)
 	{
-		console.log(param);
-		//console.log(this.state.date);
-		console.log(e);
 		this.setState({date : param});
+		var month = param.slice(4,6);
+
+		this.setState({monthString : monthNames[parseInt(month)-1]})
+
 		this.fetchWeatherDataHistory();
+	}
+
+	handleForecastClick(param, e)
+	{
+		this.setState({date : param});
+		this.fetchWeatherDataForecast();
 	}
 
 	getWeatherFormat(date)
@@ -94,15 +105,15 @@ export default class phone extends Component {
 				<div class={ style.container }>
 				<div class= { style_iphone.container }>
 				{ this.state.display ? <Button number={ "S" }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataForecast }/ > : null }
-					{ this.state.display ? <Button number={ datem3.getDate() } class={ style_iphone.button } clickFunction={  this.handleClick.bind(this, dates3) }/ > : null }
-					{ this.state.display ? <Button number={ datem2.getDate() }  class={ style_iphone.button } clickFunction={  this.handleClick.bind(this, dates2) }/ > : null }
-					{ this.state.display ? <Button number={ datem1.getDate() }  class={ style_iphone.button } clickFunction={  this.handleClick.bind(this, dates1) }/ > : null }
+					{ this.state.display ? <Button number={ datem3.getDate() } class={ style_iphone.button } clickFunction={  this.handleHistoryClick.bind(this, dates3) }/ > : null }
+					{ this.state.display ? <Button number={ datem2.getDate() }  class={ style_iphone.button } clickFunction={  this.handleHistoryClick.bind(this, dates2) }/ > : null }
+					{ this.state.display ? <Button number={ datem1.getDate() }  class={ style_iphone.button } clickFunction={  this.handleHistoryClick.bind(this, dates1) }/ > : null }
 					{ this.state.display ? <Button number={ today.getDate()  }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataCurrent }/ > : null }
-					{ this.state.display ? <Button number={ datep1.getDate() }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataForecast }/ > : null }
-					{ this.state.display ? <Button number={ datep2.getDate() }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataForecast }/ > : null }
-					{ this.state.display ? <Button number={ datep3.getDate() }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataForecast }/ > : null }
+					{ this.state.display ? <Button number={ datep1.getDate() }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 1) }/ > : null }
+					{ this.state.display ? <Button number={ datep2.getDate() }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 2) }/ > : null }
+					{ this.state.display ? <Button number={ datep3.getDate() }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 3) }/ > : null }
 				</div>
-				<div class={ style.month }>{ "FEB" }</div>
+				<div class={ style.month }>{ this.state.monthString }</div>
 				<div class={ style.city }>{ this.state.locate }</div>
 				<div class={ style.temperature }>{ this.state.temp }</div>
 				<div class={ style.temperature }>{ this.state.cond }</div>
@@ -127,8 +138,19 @@ export default class phone extends Component {
 	parseResponseHistory = (parsed_json) => {
 		var currentTime = new Date();
 		console.log(currentTime.getHours());
-		var tempm = parsed_json['history']['observations'][currentTime.getHours()-1]['tempm'];
-		var conditions = parsed_json['history']['observations'][currentTime.getHours()-1]['conds'];
+		var observations = parsed_json['history']['observations'];
+		var hours = new Array(24);
+		var x = 0;
+		for(var i = 0; i < observations.length ; i++)
+		{
+			if(observations[i]['date']['hour'] == x)
+			{
+				hours[x] = observations[i];
+				x++;
+			}
+		}
+		var tempm = hours[currentTime.getHours()]['tempm'];
+		var conditions = hours[currentTime.getHours()]['conds'];
 
 		// set states for fields so they could be rendered later on
 		this.setState({
@@ -138,8 +160,8 @@ export default class phone extends Component {
 	}
 
 	parseResponseForecast = (parsed_json) => {
-		var temp_c = parsed_json['hourly_forecast'][23]['temp']['metric'];
-		var conditions = parsed_json['hourly_forecast'][23]['condition'];
+		var temp_c = parsed_json['hourly_forecast'][this.state.date*23]['temp']['metric'];
+		var conditions = parsed_json['hourly_forecast'][this.state.date*23]['condition'];
 
 		// set states for fields so they could be rendered later on
 		this.setState({
