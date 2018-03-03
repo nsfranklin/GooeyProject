@@ -5,11 +5,12 @@ import $ from 'jquery';
 import Button from '../button';
 
 const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",  "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+var date = new Date();
 
 export default class phone extends Component {
 
 	constructor(props){
-		var date = new Date();
+
 		super(props);
 		this.state.zmw="00000.40.03779";
 		this.state.date = "";
@@ -125,6 +126,7 @@ export default class phone extends Component {
 		}
 
 	parseResponseConditions = (parsed_json) => {
+		this.setState({monthString : monthNames[date.getMonth()]});
 		var temp_c = parsed_json['current_observation']['temp_c'];
 		var conditions = parsed_json['current_observation']['weather'];
 
@@ -160,6 +162,8 @@ export default class phone extends Component {
 	}
 
 	parseResponseForecast = (parsed_json) => {
+		var monthCalc = new Date(date.setTime( date.getTime() + this.state.date * 86400000 ));
+		this.setState({ monthString : monthNames[ monthCalc.getMonth() ] });
 		var temp_c = parsed_json['hourly_forecast'][this.state.date*23]['temp']['metric'];
 		var conditions = parsed_json['hourly_forecast'][this.state.date*23]['condition'];
 
