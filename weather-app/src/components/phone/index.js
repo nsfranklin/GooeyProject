@@ -3,6 +3,7 @@ import style from './style';
 import style_iphone from '../button/style_iphone';
 import $ from 'jquery';
 import Button from '../button';
+import Search from '../search';
 
 const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",  "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 var date = new Date();
@@ -17,7 +18,9 @@ export default class phone extends Component {
 		this.state.hourly = "";
 		this.state.days = "";
 		this.state.monthString = monthNames[(date.getMonth())];
-		this.state.locationString = "";
+		this.state.locationString = "location";
+		this.state.showSearch = false;
+		this.state.test = "";
 		this.fetchWeatherDataCurrent();
 		this.setState({ display: true });
 	}
@@ -75,6 +78,12 @@ export default class phone extends Component {
 		return date.getDate()+ (date.getMonth() + 1) + date.getFullYear();
 	}
 
+	toggleSearch() {
+    this.setState({
+      showSearch: !this.state.showSearch
+    });
+	}
+
 	render() {
 		const tempStyles = this.state.temp ? `${style.temperature} ${style.filled}` : style.temperature;
 
@@ -92,7 +101,6 @@ export default class phone extends Component {
 			var datep2 = new Date(date.setTime( date.getTime() + 2 * 86400000 ));
 			var date = new Date();
 			var datep3 = new Date(date.setTime( date.getTime() + 3 * 86400000 ));
-			var month = "FEB";
 
 			//datem3.getDate()+ (datem3.getMonth() + 1) + datem3.getFullYear()
 			var dates1 = datem1.getFullYear()+ "" + ("0" + (datem1.getMonth() + 1)).slice(-2)+ "" + ("0" + (datem1.getDate())).slice(-2)+ "";
@@ -105,24 +113,32 @@ export default class phone extends Component {
 
 				<div class={ style.container }>
 				<div class= { style_iphone.container }>
-				{ this.state.display ? <Button number={ "S" }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataForecast }/ > : null }
-					{ this.state.display ? <Button number={ datem3.getDate() } class={ style_iphone.button } clickFunction={  this.handleHistoryClick.bind(this, dates3) }/ > : null }
-					{ this.state.display ? <Button number={ datem2.getDate() }  class={ style_iphone.button } clickFunction={  this.handleHistoryClick.bind(this, dates2) }/ > : null }
-					{ this.state.display ? <Button number={ datem1.getDate() }  class={ style_iphone.button } clickFunction={  this.handleHistoryClick.bind(this, dates1) }/ > : null }
-					{ this.state.display ? <Button number={ today.getDate()  }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataCurrent }/ > : null }
-					{ this.state.display ? <Button number={ datep1.getDate() }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 1) }/ > : null }
-					{ this.state.display ? <Button number={ datep2.getDate() }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 2) }/ > : null }
-					{ this.state.display ? <Button number={ datep3.getDate() }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 3) }/ > : null }
+				<Button number={ "S" }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataForecast }/ >
+					<Button number={ datem3.getDate() } class={ style_iphone.button } clickFunction={  this.handleHistoryClick.bind(this, dates3) }/ >
+					<Button number={ datem2.getDate() }  class={ style_iphone.button } clickFunction={  this.handleHistoryClick.bind(this, dates2) }/ >
+					<Button number={ datem1.getDate() }  class={ style_iphone.button } clickFunction={  this.handleHistoryClick.bind(this, dates1) }/ >
+					<Button number={ today.getDate()  }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataCurrent }/ >
+					<Button number={ datep1.getDate() }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 1) }/ >
+					<Button number={ datep2.getDate() }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 2) }/ >
+					<Button number={ datep3.getDate() }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 3) }/ >
 				</div>
-				<div class={ style.month }>{ this.state.monthString }</div>
+				<Button number={ this.state.locationString } class={ style.searchT } clickFunction={ this.toggleSearch.bind(this) }/>
+				{this.state.showSearch ? <Search class = { style.popup } ting={this.doSomething.bind(this)} text='Close Me' closePopup={this.toggleSearch.bind(this)} /> : null }
+				<div class={ style.month }>{ this.state.monthString }{this.state.test}</div>
 				<div class={ style.city }>{ this.state.locate }</div>
 				<div class={ style.temperature }>{ this.state.temp }</div>
 				<div class={ style.temperature }>{ this.state.cond }</div>
+
 
 					<div class={ style.details }></div>
 
 				</div>
 			);
+		}
+
+		doSomething(arg)
+		{
+			this.setState({ test : arg });
 		}
 
 	parseResponseConditions = (parsed_json) => {
