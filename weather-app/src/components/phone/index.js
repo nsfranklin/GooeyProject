@@ -4,6 +4,8 @@ import style_iphone from '../button/style_iphone';
 import $ from 'jquery';
 import Button from '../button';
 import Search from '../search';
+import Details from '../Details';
+import WindD from '../windD';
 
 const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",  "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 var date = new Date();
@@ -130,8 +132,15 @@ export default class phone extends Component {
 				<div class={ style.temperature }>{ this.state.temp }</div>
 				<div class={ style.temperature }>{ this.state.cond }</div>
 
+					
+				<div class={ style.details }>
+					<Details/>
 
-					<div class={ style.details }></div>
+				</div>
+
+				<div>
+					<WindD/>
+				</div>
 
 				</div>
 			);

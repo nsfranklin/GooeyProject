@@ -1,27 +1,27 @@
 // import preact
 import { h, render, Component } from 'preact';
-	
+import phone from '../phone';
+
 export default class Details extends Component {
 
 	constructor(props) {
 	super(props);
-	this.state = {precipChance: "test", currentPressure: "test", currentWindSpeed: "test", currentWindDirection: "test",currentHumidity: "test" //{precipChance: props.precipCurrent, currentPressure: props.currentPressure, currentWindSpeed: props.currentWindSpeed, currentWindDirection: props.currentWindDirection,currentHumidity: props.currentHumidity
-	
-		}
+	this.state.precipChance = 22;
+	this.state.currentPressure = "test";
+	this.state.currentWindSpeed = "test";
+	this.state.currentWindDirection = "test";
+	this.state.currentHumidity = "test";
+	this.setState({display: true});
 	}
-	
 	render() 
 	{
-	
-        return (<div>
-		<div><body>Precipitation Chance: {precipChance}</body></div>
-		<div><body>Current Pressure: {currentPressure}</body></div>
-		<div><body>Current Wind Speed: {currentWindSpeed}</body></div>
-		<div><body>Current Wind Direction: {currentWindDirection}</body></div>
-		//<div><body>Sunrise: {sunrise}</body></div>	
-		//<div><body>Sunset: {sunset}</body></div>
-		<div><body>Humidity: {currentHumidity}</body></div>
+        return (
+		<div><p>Precipitation Chance: {this.state.precipChance}</p>
+		<p>Current Pressure: {this.state.currentPressure}</p>
+		<p>Current Wind Speed: {this.state.currentWindSpeed}</p>
+		<p>Current Wind Direction: {this.state.currentWindDirection}</p>
+		<p>Humidity: {this.state.currentHumidity}</p>
 		</div>
-               );
+		);
     }
 }
