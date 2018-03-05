@@ -1,5 +1,6 @@
 // import preact
 import { h, render, Component } from 'preact';
+import ".weather-app/src/components/windD";
 	
 export default class windD extends Component {
 
