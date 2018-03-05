@@ -1,106 +1,76 @@
 // import preact
 import { h, render, Component } from 'preact';
-import ".weather-app/src/components/windD";
 	
 export default class windD extends Component {
 
 	constructor(props) {
 	super(props);
 	this.state.currentWindSpeed = 22;
-	this.state.currentWindDirection = "NNE";
+	this.state.currentWindDirection = "S";
 	this.setState({display: true});
 	}
 
-chooseIcon(parma, dirNum) {
+chooseIcon() {
 
-	switch(dirNUM) {
+	switch(this.state.currentWindDirection) {
 	
-		case 0:
-			var result = <i class="wi wi-wind wind-from-n"></i>;
-			return;
+		case "N":
+			return <img src="/assets/directions/n.svg"/>;
 			break;
-		case 1:
-			var result = <i class="wi wi-wind wind-from-s"></i>;
-			return;			
+		case "S":
+			return <img src="/assets/directions/s.svg"/>;		
 			break;
-		case 2:
-			var result = <i class="wi wi-wind wind-from-e"></i>;
-			return;			
+		case "E":
+			return <img src="/assets/directions/e.svg"/>;			
 			break;
-		case 3:
-			var result = <i class="wi wi-wind wind-from-w"></i>;
-			return;			
+		case "W":
+			return <img src="/assets/directions/w.svg"/>;			
 			break;
-		case 4:
-			var result = <i class="wi wi-wind wind-from-ne"></i>;
-			return;			
+		case "NE":
+			return <img src="/assets/directions/ne.svg"/>;		
 			break;
-		case 5:
-			var result = <i class="wi wi-wind wind-from-se"></i>;
-			return;			
+		case "SE":
+			return <img src="/assets/directions/se.svg"/>;	
 			break;
-		case 6:
-			var result = <i class="wi wi-wind wind-from-sw"></i>;
-			return;			
+		case "SW":
+			return <img src="/assets/directions/sw.svg"/>;			
 			break;
-		case 7:
-			var result = <i class="wi wi-wind wind-from-nw"></i>;
-			return;			
+		case "NW":
+			return <img src="/assets/directions/nw.svg"/>;			
 			break;
-		case 8:
-			var result = <i class="wi wi-wind wind-from-nne"></i>;
-			return;			
+		case "NNE":
+			return <img src="/assets/directions/nne.svg"/>;			
 			break;
-		case 9:	
-			var result = <i class="wi wi-wind wind-from-ene"></i>;
-			return;			
+		case "ENE":	
+			return <img src="/assets/directions/ene.svg"/>;		
 			break;
-		case 10:
-			var result = <i class="wi wi-wind wind-from-ese"></i>;
-			return;			
+		case "ESE":
+			return <img src="/assets/directions/ese.svg"/>;			
 			break;
-		case 11:
-			var result = <i class="wi wi-wind wind-from-sse"></i>;
-			return;			
+		case "SSE":
+			return <img src="/assets/directions/sse.svg"/>;		
 			break;
-		case 12:
-			var result = <i class="wi wi-wind wind-from-ssw"></i>;
-			return;			
+		case "SSW":
+			return <img src="/assets/directions/ssw.svg"/>;		
 			break;
-		case 13:
-			var result = <i class="wi wi-wind wind-from-wsw"></i>;
-			return;			
+		case "WSW":
+			return <img src="/assets/directions/wsw.svg"/>;			
 			break;
-		case 14:
-			var result = <i class="wi wi-wind wind-from-wnw"></i>;
-			return;			
+		case "WNW":
+			return <img src="/assets/directions/wnw.svg"/>;			
 			break;
-		case 15:
-			var result = <i class="wi wi-wind wind-from-nnw"></i>;
-			return; 			
+		case "NNW":
+			return <img src="/assets/directions/nnw.svg"/>; 			
 			break;
 		default:
-			var result = <i class="wi"></i>;
-			return;	
+			return <img src="/assets/directions/test.svg"/>;	
 			break;
 	}
 }
-
-	directionNum(param, currentWindDirection) {
-		var WindCodes = ["N","S","E","W","NE","SE","SW","NW","NNE","ENE","ESE","SSE","SSW","WSW","WNW","NNW"];
-
-		for(i = 0 ; i < 16 ; i++)
-		{
-			if(dir == WindCodes[i])
-			{
-				return i;
-			}
-		}
-	}
 	
 	render() {
         return (
-		<p>Current Wind Speed: {this.state.currentWindSpeed} Current Wind Direction: {<i class="wi wi-wind wind-from-nnw"></i>}</p>
+		<p>Current Wind Speed: {this.state.currentWindSpeed} Current Wind Direction: {this.chooseIcon()}</p>
                );
    	 }
 }
