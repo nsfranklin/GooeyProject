@@ -85,6 +85,7 @@ export default class phone extends Component {
     });
 	}
 
+
 	render() {
 		const tempStyles = this.state.temp ? `${style.temperature} ${style.filled}` : style.temperature;
 
@@ -113,6 +114,7 @@ export default class phone extends Component {
 		return (
 
 				<div class={ style.container }>
+
 				<div class= { style_iphone.container }>
 				<Button number={ "S" }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataForecast }/ >
 					<Button number={ datem3.getDate() } class={ style_iphone.button } clickFunction={  this.handleHistoryClick.bind(this, dates3) }/ >
@@ -122,16 +124,22 @@ export default class phone extends Component {
 					<Button number={ datep1.getDate() }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 1) }/ >
 					<Button number={ datep2.getDate() }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 2) }/ >
 					<Button number={ datep3.getDate() }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 3) }/ >
+
 				</div>
-				<Button number={ this.state.locationString } class={ style.searchT } clickFunction={ this.toggleSearch.bind(this) }/>
-				{this.state.showSearch ? <Search class = { style.popup } setzmw = { this.setZmwFromSearch.bind(this) } other = { this.state.searchList } ting={this.doSomething.bind(this)} text='Close Me' closePopup={this.toggleSearch.bind(this)} /> : null }
+				<div class = {style.precipitation}><h6> Test this is some weather information</h6></div>
 				<div class={ style.month }>{ this.state.monthString }{this.state.test}</div>
+				<Button number={ this.state.locationString } class={ style.searchT } clickFunction={ this.toggleSearch.bind(this) }/>
+				{this.state.showSearch ? <Search class = { style.popup } setzmw = { this.setZmwFromSearch.bind(this) } other = { this.state.searchList } ting={this.doSomething.bind(this)} closePopup={this.toggleSearch.bind(this)} /> : null }
+				<div class={ style.details }>
+
+
 				<div class={ style.city }>{ this.state.locate }</div>
 				<div class={ style.temperature }>{ this.state.temp }</div>
 				<div class={ style.temperature }>{ this.state.cond }</div>
 
 
-					<div class={ style.details }></div>
+					</div>
+
 
 				</div>
 			);

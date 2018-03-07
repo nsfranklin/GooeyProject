@@ -9,19 +9,39 @@
 	text-align: center;
 	margin: 0 auto;
 }
+
 .header {
 	display: block;
 }
 .details {
-	flex: 4;
+	position: fixed;
+	display: flex;
+	padding: 0px;
+	margin-top: 60px;
+	margin-left: 70px;
+  width: 344px;
+  height: 420px;
+	background: rgb(21, 135, 228);
+	/*background-size: 354px 420px;
+
+	background-image: url('https://images.unsplash.com/photo-1467277378664-19a209d31b02?ixlib=rb-0.3.5&s=2e7f87ade0538a95abb90a2fa5d234c6&auto=format&fit=crop&w=1334&q=80');
+	background-repeat: no-repeat;
+	background-position: center;
+	display: block;
+	overflow: hidden;
+	*/
+}
+
+.mon{
+
 }
 .city {
 	flex: 1;
 	font-size: 15px;
 	color: #ba4444;
 	font-weight: 400;
-	margin-top: 22.5px;
-	margin-left: 175px;
+	margin-top: 0px;
+	margin-left: 0px;
 	width: auto;
 	height:15px;
 
@@ -35,16 +55,14 @@
 	font-size: 4.8em;
 	font-weight: 300;
 	letter-spacing: -5px;
-
-
 }
 .month{
-	display:block;
+	//display:block;
 	color: #ba4444;
 	height: 35px;
-	margin-top: 15px;
-	margin-left: 10px;
-	font-size: 30px;
+	margin-top: 3px;
+	margin-left: 2px;
+	font-size: 40px;
 }
 .filled:after {
 	content: "°C";
@@ -56,6 +74,18 @@
 	vertical-align: top;
 }
 
+.precipitation{
+	position: fixed;
+	display: flex;
+	padding: 2px;
+	margin-top: 500px;
+	width: 414px;
+	height: 40px;
+	background-color: #ba4444;
+	text-align: left;
+
+}
+
 .popup {
   position: fixed;
   width: 100%;
@@ -64,7 +94,6 @@
   left: 0;
   right: 0;
   bottom: 0;
-  margin: auto;
   background-color: rgba(0,0,0, 0.5);
 }
 .popup_inner {
@@ -73,6 +102,14 @@
   right: 25%;
   top: 25%;
   bottom: 25%;
-  margin: auto;
+  margin-top: 100px;
+	margin-left: 100px;
   background: white;
+}
+
+.searchT{
+	position: relative;
+	float:right;
+	display: block;
+	margin-right: 300px;
 }
