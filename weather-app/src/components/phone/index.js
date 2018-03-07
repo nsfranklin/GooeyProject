@@ -16,8 +16,10 @@ export default class phone extends Component {
 		this.state.date = "";
 		this.state.latlon = "";
 		this.state.city="";
+		this.state.feelslike = "";
 		this.state.forecastJSON = new Array();
 		this.state.currentJSON = new Array();
+		this.state.pop = "";
 		this.getLocation();
 		this.state.monthString = monthNames[(date.getMonth())];
 		this.state.locationString = "location";
@@ -29,25 +31,27 @@ export default class phone extends Component {
 		this.state.current = "current";
 	}
 
+	setJSON()
+	{
+		this.fetchWeatherDataCurrent();
+	}
+
 	getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.setLocation);
     } else {
         console.log("Geolocation is not supported by this browser.");
     }
-
-
 	}
+
 	setLocation = (position) => {
 	var format = position.coords.latitude+","+position.coords.longitude;
 	this.setState({latlon:format});
-	console.log(this.state.latlon);
 	this.fetchLocation();
 	}
 
 fetchLocation = () => {
-	var url = "http://api.wunderground.com/api/03cd34b98761d6d4/conditions/q/"+this.state.latlon+".json";
-	console.log(url);
+	var url = "http://api.wunderground.com/api/c8bdb7b86b273272/conditions/q/"+this.state.latlon+".json";
 	$.ajax({
 		url: url,
 		dataType: "jsonp",
@@ -58,7 +62,7 @@ fetchLocation = () => {
 }
 
 parseResponseLocation = (parsed_json) => {
-	console.log(this.state.latlon);
+	console.log(parsed_json);
 	var zip = parsed_json['current_observation']['display_location']['zip'];
 	var magic = parsed_json['current_observation']['display_location']['magic'];
 	var wmo = parsed_json['current_observation']['display_location']['wmo'];
@@ -71,11 +75,13 @@ parseResponseLocation = (parsed_json) => {
 		current : "current",
 		locationString : city
 	});
-	this.fetchWeatherDataCurrent();
+	this.setJSON();
+
+
 }
 
 	fetchWeatherDataCurrent = () => {
-		var url = "http://api.wunderground.com/api/03cd34b98761d6d4/conditions/q/zmw:"+this.state.zmw+".json";
+		var url = "http://api.wunderground.com/api/c8bdb7b86b273272/conditions/q/zmw:"+this.state.zmw+".json";
 		$.ajax({
 			url: url,
 			dataType: "jsonp",
@@ -87,7 +93,7 @@ parseResponseLocation = (parsed_json) => {
 
 
 	fetchWeatherDataForecast = () => {
-		var url = "http://api.wunderground.com/api/03cd34b98761d6d4/hourly10day/q/zmw:"+this.state.zmw+".json";
+		var url = "http://api.wunderground.com/api/c8bdb7b86b273272/hourly10day/q/zmw:"+this.state.zmw+".json";
 		$.ajax({
 			url: url,
 			dataType: "jsonp",
@@ -98,8 +104,41 @@ parseResponseLocation = (parsed_json) => {
 
 	handleForecastClick(param, e)
 	{
-		this.setState({date : param});
-		this.fetchWeatherDataForecast();
+		var parsed_json = this.state.forecastJSON;
+		var date = new Date();
+		var monthCalc = new Date(date.setTime( date.getTime() + this.state.date * 86400000 ));
+		var temp_c = this.state.forecastJSON['hourly_forecast'][param*23]['temp']['metric'];
+		var conditions = this.state.forecastJSON['hourly_forecast'][param*23]['condition'];
+		var popc = this.state.forecastJSON['hourly_forecast'][param*23]['pop'];
+		var feelslikec = this.state.forecastJSON['hourly_forecast'][param*23]['feelslike']['metric'];
+		this.setState({
+			monthString : monthNames[monthCalc.getMonth()],
+			temp : temp_c,
+			cond : conditions,
+			pop : popc,
+			feelslike : feelslikec
+			});
+
+			console.log(this.state.temp);
+
+	}
+
+	handleTodayClick(param, e)
+	{
+		var parsed_json = this.state.currentJSON;
+		var temp_c = parsed_json['current_observation']['temp_c'];
+		var conditions = parsed_json['current_observation']['weather'];
+		var city = parsed_json['current_observation']['display_location']['city'];
+		var popc = this.state.forecastJSON['hourly_forecast'][0]['pop'];
+		var feelslikec = parsed_json['current_observation']['feelslike_c'];
+		this.setState({
+			monthString : monthNames[date.getMonth()],
+			temp : temp_c,
+			cond : conditions,
+			locationString : city,
+			pop : popc,
+			feelslike : feelslikec
+			});
 	}
 
 	toggleSearch() {
@@ -150,17 +189,19 @@ parseResponseLocation = (parsed_json) => {
 				<div class= { style_iphone.container }>
 					<Button number={ "S" }  class={ style_iphone.button } clickFunction={ this.toggleSettings.bind(this) }/ >
 
-					<Button number={ today.getDate()  }  class={ style_iphone.button } clickFunction={ this.fetchWeatherDataCurrent }/ >
+					<Button number={ today.getDate()  }  class={ style_iphone.button } clickFunction={ this.handleTodayClick.bind(this, 0)}/ >
 					<Button number={ datep1.getDate() }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 1) }/ >
 					<Button number={ datep2.getDate() }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 2) }/ >
 					<Button number={ datep3.getDate() }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 3) }/ >
 				</div>
 				<Button number={ this.state.locationString } class={ style.searchT } clickFunction={ this.toggleSearch.bind(this) }/>
 				{this.state.showSearch ? <Search class = { style.popup } setzmw = { this.setZmwFromSearch.bind(this) } other = { this.state.searchList } ting={this.getSearchResults.bind(this)} text='Close Me' closePopup={this.toggleSearch.bind(this)} /> : null }
-				<div class={ style.month }>{ this.state.monthString }{this.state.test}</div>
-				<div class={ style.city }>{ this.state.locate }</div>
-				<div class={ style.temperature }>{ this.state.temp }</div>
-				<div class={ style.temperature }>{ this.state.cond }</div>
+				<div >{ this.state.monthString }{this.state.test}</div>
+				<div >{ this.state.locate }</div>
+				<div >{ this.state.temp }</div>
+				<div >{ this.state.cond }</div>
+				<div >feels like { this.state.feelslike }</div>
+				<div >{ this.state.pop }%chanche of precipitation today</div>
 
 
 					<div class={ style.details }></div>
@@ -178,15 +219,8 @@ parseResponseLocation = (parsed_json) => {
 		setZmwFromSearch(arg)
 		{
 			this.setState({ zmw : arg });
-			if(this.state.current == "current")
-			{
-				this.fetchWeatherDataCurrent();
-			}
-			else
-			{
-				this.fetchWeatherDataCurrent();
-				this.fetchWeatherDataForecast();
-			}
+			this.setJSON();
+				console.log(this.state.zmw);
 		}
 
 
@@ -212,34 +246,19 @@ parseResponseLocation = (parsed_json) => {
 
 
 	parseResponseConditions = (parsed_json) => {
-		this.setState({monthString : monthNames[date.getMonth()]});
-		var temp_c = parsed_json['current_observation']['temp_c'];
-		var conditions = parsed_json['current_observation']['weather'];
-		var city = parsed_json['current_observation']['display_location']['city'];
-
-		// set states for fields so they could be rendered later on
 		this.setState({
-			temp : temp_c,
-			cond : conditions,
-			locationString : city,
-			currentJSON : parsed_json
+			currentJSON : parsed_json,
+			current : "current"
 		});
-		this.setState({ current : "current" });
+		this.fetchWeatherDataForecast();
 	}
 
 	parseResponseForecast = (parsed_json) => {
-		var monthCalc = new Date(date.setTime( date.getTime() + this.state.date * 86400000 ));
-		this.setState({ monthString : monthNames[ monthCalc.getMonth() ] });
-		var temp_c = parsed_json['hourly_forecast'][this.state.date*23]['temp']['metric'];
-		var conditions = parsed_json['hourly_forecast'][this.state.date*23]['condition'];
-
-		// set states for fields so they could be rendered later on
 		this.setState({
-			cond : conditions,
-			temp: temp_c,
-			forecastJSON : parsed_json
+			forecastJSON : parsed_json,
+			current : "forecast"
 
 		});
-		this.setState({ current : "forecast" });
+		this.handleTodayClick(0,0);
 	}
 }

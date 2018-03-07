@@ -8,10 +8,10 @@ export default class Search extends Component
   }
   handleChange(e)
   {
-    const asd = e.target.value;
-    this.props.ting(asd);
+    const value = e.target.value;
+    this.props.ting(value);
     this.state.items = this.props.other;
-    console.log(asd);
+    console.log(value);
   }
   mappingF()
   {
@@ -19,12 +19,12 @@ export default class Search extends Component
     var output = [];
     if(!this.isEmpty(items[0]))
     {
-      for(var i = 0; i < items.length; i++) {output.push(<button onClick={ this.kek.bind(this,i) }> {items[i]['name']} </button>);}
+      for(var i = 0; i < items.length; i++) {output.push(<button onClick={ this.setZMW.bind(this,i) }> {items[i]['name']} </button>);}
     }
 
         return output;
   }
-  kek(param,e)
+  setZMW(param,e)
   {
     console.log(this.props.other[param]['zmw']);
     this.props.setzmw(this.props.other[param]['zmw']);
@@ -40,10 +40,10 @@ export default class Search extends Component
     return (
       <div className='popup'>
         <div className='popup_inner'>
-        <input placeholder={ "Location name e.g. Silverstone" } onKeyDown={ this.handleChange.bind(this) }></input>
+        <input placeholder={ "Location name" } onKeyDown={ this.handleChange.bind(this) }></input>
           <h1>{this.props.text}</h1>
           <div>{ this.mappingF() }</div>
-        <button onClick={this.props.closePopup}>close me</button>
+        <button onClick={this.props.closePopup}></button>
 
         </div>
       </div>
