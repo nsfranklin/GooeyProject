@@ -189,7 +189,7 @@ parseResponseLocation = (parsed_json) => {
 				<div class={ style.container }>
 				<Button number={ "A" }  class={ style_iphone.button } clickFunction={ this.toggleAlerts.bind(this) }/ >
 				<div class= { style_iphone.container }>
-					<Button number={ "S" }  class={ style_iphone.button } clickFunction={ this.toggleSettings.bind(this) }/>
+					<Button number={<i class='material-icons'>&#xE8B8;</i>}  class={ style_iphone.button } clickFunction={ this.toggleSettings.bind(this) }/>
 
 					<Button number={ today.getDate()  }  class={ style_iphone.button } clickFunction={ this.handleTodayClick.bind(this, 0)}/ >
 					<Button number={ datep1.getDate() }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 1) }/ >
