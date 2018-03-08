@@ -166,23 +166,13 @@ parseResponseLocation = (parsed_json) => {
 	render() {
 		const tempStyles = this.state.temp ? `${style.temperature} ${style.filled}` : style.temperature;
 
+			var dates = new Array(7);
 			var date = new Date();
-			var today = new Date(date.setTime( date.getTime() + 0 * 86400000 ));
-			var date = new Date();
-			var datem1 = new Date(date.setTime( date.getTime() + -1 * 86400000 ));
-			var date = new Date();
-			var datem2 = new Date(date.setTime( date.getTime() + -2 * 86400000 ));
-			var date = new Date();
-			var datem3 = new Date(date.setTime( date.getTime() + -3 * 86400000 ));
-			var date = new Date();
-			var datep1 = new Date(date.setTime( date.getTime() + 1 * 86400000 ));
-			var date = new Date();
-			var datep2 = new Date(date.setTime( date.getTime() + 2 * 86400000 ));
-			var date = new Date();
-			var datep3 = new Date(date.setTime( date.getTime() + 3 * 86400000 ));
-
-
-
+			for(var i = 0; i < dates.length; i++)
+			{
+				date = new Date();
+				dates[i] = new Date(date.setTime( date.getTime() + i * 86400000 ));
+			}
 
 		return (
 
@@ -191,10 +181,13 @@ parseResponseLocation = (parsed_json) => {
 				<div class= { style_iphone.container }>
 					<Button number={ "S" }  class={ style_iphone.button } clickFunction={ this.toggleSettings.bind(this) }/>
 
-					<Button number={ today.getDate()  }  class={ style_iphone.button } clickFunction={ this.handleTodayClick.bind(this, 0)}/ >
-					<Button number={ datep1.getDate() }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 1) }/ >
-					<Button number={ datep2.getDate() }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 2) }/ >
-					<Button number={ datep3.getDate() }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 3) }/ >
+					<Button number={ dates[0].getDate()  }  class={ style_iphone.button } clickFunction={ this.handleTodayClick.bind(this, 0)}/ >
+					<Button number={ dates[1].getDate() }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 1) }/ >
+					<Button number={ dates[2].getDate()  }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 2) }/ >
+					<Button number={ dates[3].getDate()  }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 3) }/ >
+					<Button number={ dates[4].getDate()  }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 4) }/ >
+					<Button number={ dates[5].getDate()  }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 5) }/ >
+					<Button number={ dates[6].getDate()  }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 6) }/ >
 				</div>
 				<Button number={ this.state.locationString } class={ style.searchT } clickFunction={ this.toggleSearch.bind(this) }/>
 				{this.state.showSearch ? <Search class = { style.popup } setzmw = { this.setZmwFromSearch.bind(this) } other = { this.state.searchList } ting={this.getSearchResults.bind(this)} text='Close Me' closePopup={this.toggleSearch.bind(this)} /> : null }
@@ -205,7 +198,7 @@ parseResponseLocation = (parsed_json) => {
 				<div >feels like { this.state.feelslike }</div>
 				<div >{ this.state.pop }%chanche of precipitation today</div>
 
-					
+
 				<div class={ style.details }>
 					<Details/>
 
