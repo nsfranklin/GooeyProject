@@ -21,9 +21,7 @@ export default class WeatherScroll extends Component {
 					var hours = new Date(date.setTime( date.getTime() + i * 3600000 ));
 					output.push(
 					<div>
-						<p> {temp[i]['temp']['metric']} </p>
-						<p> {temp[i]['wx']} </p>
-						<p> {hours.getHours() + ":00"} </p>
+						{temp[i]['temp']['metric']} {temp[i]['wx']}  {hours.getHours() + ":00"}
 					</div>
 					);
 				}

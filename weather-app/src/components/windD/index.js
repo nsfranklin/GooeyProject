@@ -78,10 +78,10 @@ mappingT(){
 				var hours = new Date(date.setTime( date.getTime() + i * 3600000 ));
 				output.push(
 				<div>
-					<p> {temp[i]['wspd']['metric']} </p>
-					<p> {temp[i]['wdir']['dir']} </p>
-					<p>{this.chooseIcon(temp[i]['wdir']['dir'])}</p>
-					<p> {hours.getHours() + ":00"} </p>
+					{temp[i]['wspd']['metric']}<br/>
+					{temp[i]['wdir']['dir']}
+					{this.chooseIcon(temp[i]['wdir']['dir'])}
+					{hours.getHours() + ":00"}
 				</div>
 				);
 			}

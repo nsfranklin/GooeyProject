@@ -239,7 +239,9 @@ parseResponseLocation = (parsed_json) => {
 
 				<div class={ style.windD }>
 				<WeatherScroll dataf = {this.state.forecastJSON} days = {this.state.day}/>
+				</div>				
 
+				<div class={ style.windD2 }>
 				<WindD dataf={this.state.forecastJSON} days={this.state.day}/>
 
 				</div>
