@@ -200,10 +200,15 @@ parseResponseLocation = (parsed_json) => {
 		return (
 
 				<div class={ style.container }>
-				<Button number={ "A" }  class={ style_iphone.button } clickFunction={ this.toggleAlerts.bind(this) }/ >
-				{this.state.showAlerts ? <Alerts alertsarr = {this.state.alertsJSON}/> : null}
+
+
+				<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"/>
+
+
 				<div class= { style_iphone.container }>
-					<Button number={ "S" }  class={ style_iphone.button } clickFunction={ this.toggleSettings.bind(this) }/>
+
+					<Button number={<i class='material-icons'>settings</i>}  class={ style_iphone.button } clickFunction={ this.toggleSettings.bind(this) }/>
 
 					<Button number={ dates[0].getDate()  }  class={ style_iphone.button } clickFunction={ this.handleTodayClick.bind(this, 0) }/ >
 					<Button number={ dates[1].getDate()  }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 1) }/ >
@@ -213,22 +218,30 @@ parseResponseLocation = (parsed_json) => {
 					<Button number={ dates[5].getDate()  }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 5) }/ >
 					<Button number={ dates[6].getDate()  }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 6) }/ >
 				</div>
-				<Button number={ this.state.locationString } class={ style.searchT } clickFunction={ this.toggleSearch.bind(this) }/>
+				<div class={ style.month }>{ this.state.monthString }{this.state.test}</div>
+				<Button number={ <i class ='material-icons'>warning</i> }  class={ style_iphone.button } clickFunction={ this.toggleAlerts.bind(this) }/ >
+
+
+				<Button number={ <i class ='material-icons'>search</i> } class={ style_iphone.button } clickFunction={ this.toggleSearch.bind(this) }/>
 				{this.state.showSearch ? <Search class = { style.popup } setzmw = { this.setZmwFromSearch.bind(this) } other = { this.state.searchList } ting={this.getSearchResults.bind(this)} text='Close Me' closePopup={this.toggleSearch.bind(this)} /> : null }
+
 				<div >{ this.state.monthString }</div>
 				<div >{ this.state.locate }</div>
 				<div >{ this.state.temp }</div>
 				<div >{ this.state.cond }</div>
+
 				<div >feels like { this.state.feelslike }</div>
 				<div >{ this.state.pop }%chanche of precipitation today</div>
 				{this.state.showSettings ? <Settings/> : null}
 
 				<div class={ style.details }>
+
 					<Details datac={this.state.currentJSON} dataf={this.state.forecastJSON} days={this.state.day}/>
 				</div>
 				<div class={ style.windD }>
 				<WeatherScroll dataf = {this.state.forecastJSON} days = {this.state.day}/>
 				<WindD dataf={this.state.forecastJSON} days={this.state.day}/>
+
 				</div>
 
 				</div>
