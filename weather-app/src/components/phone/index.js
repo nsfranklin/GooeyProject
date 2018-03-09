@@ -241,19 +241,19 @@ parseResponseLocation = (parsed_json) => {
 				<div class ={style.temperature}>{ this.state.temp }</div> <div class = {style.filled}></div>
 				<div class ={style.feelsLike}>feels like { this.state.feelslike }</div>
 				<div class = {style.conditions}>{ this.state.cond }</div>
+				<div class={ style.windD }>
+				<WeatherScroll dataf = {this.state.forecastJSON} days = {this.state.day}/>
+				</div>
 				</div>
 
 				<div class = {style.weatherDetails}>{ this.state.pop } % chance of precipitation today</div>
 
-					<Details datac={this.state.currentJSON} dataf={this.state.forecastJSON} days={this.state.day}/>
-
-				<div class={ style.windD }>
-				<WeatherScroll dataf = {this.state.forecastJSON} days = {this.state.day}/>
-				</div>
-
 				<div class={ style.windD2 }>
 				<WindD dataf={this.state.forecastJSON} days={this.state.day}/>
+				</div>
 
+				<div class = {style.detailsInfo}>
+				<Details datac={this.state.currentJSON} dataf={this.state.forecastJSON} days={this.state.day}/>
 				</div>
 
 				</div>
