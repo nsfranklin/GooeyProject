@@ -227,7 +227,6 @@ parseResponseLocation = (parsed_json) => {
                 </div>
                 <div class={style.searchT}>
                 <Button number={ <i class ='material-icons'>search</i> } class={ style_iphone.button } clickFunction={ this.toggleSearch.bind(this) }/>
-
                 </div>
 								{this.state.showSearch ? <Search class = { style.popup } setzmw = { this.setZmwFromSearch.bind(this) } other = { this.state.searchList } ting={this.getSearchResults.bind(this)} closePopup={this.toggleSearch.bind(this)} /> : null }
 
