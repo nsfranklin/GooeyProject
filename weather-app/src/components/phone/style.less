@@ -1,6 +1,6 @@
 @import '~style/helpers';
 
-.container {
+.container {  //sets size of the app window
 	display: flex;
 	background-color: #efeae7;
 	color: #fff;
@@ -10,10 +10,7 @@
 	margin: 0 auto;
 }
 
-.header {
-	display: block;
-}
-.details {
+.details { //center overview
 	position: absolute;
 	display: flex;
 	padding: 0px;
@@ -25,7 +22,7 @@
 }
 
 
-.detailsInfo{
+.detailsInfo{  //currents weather details
 	position: absolute;
 	display: flex;
 	padding: 0px;
@@ -37,7 +34,7 @@
 }
 
 
-.feelsLike{
+.feelsLike{  //the feels like temp 
 	font-size: 16px;
 	font-weight: 100;
 	margin-left: 25px;
@@ -58,14 +55,15 @@
 	height:15px;
 
 }
-.conditions {
+.conditions { //quick view icon and desciption
 	flex: 1;
 	font-size: 16px;
 	position: fixed;
 	margin-top: 50px;
-	margin-left: 200px;
+	margin-left: 220px;
 	color: white;
 	position: absolute;
+	width: 115px;
 
 }
 .temperature {
@@ -193,7 +191,7 @@
 .searchT{
     position: flex;
     margin-top: 9px;
-		margin-left:120px;
+		margin-left:90px;
     width: auto;
     height: auto;
 }

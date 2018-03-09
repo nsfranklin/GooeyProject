@@ -15,6 +15,9 @@ chooseIcon() {
         case "Mostly Cloudy":
             return <img class='icon' src="/assets/weathericons/overcast-day.png"/>;
             break;
+	case "Overcast":
+            return <img class='icon' src="/assets/weathericons/overcast-day.png"/>;
+            break;
         case "Cloudy":
             return <img class='icon' src="/assets/weathericons/cloudy-day.png"/>;
             break;
