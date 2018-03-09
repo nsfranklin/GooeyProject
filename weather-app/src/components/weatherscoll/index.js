@@ -1,5 +1,6 @@
 // import preact
 import { h, render, Component } from 'preact';
+import style from './style.less';
 
 export default class WeatherScroll extends Component {
 	mappingT(){
@@ -38,10 +39,10 @@ export default class WeatherScroll extends Component {
     return true;
 }
 	render(){
-        return(
-					<div>
-						<p>{this.mappingT()}</p>
-					</div>
+        		return(
+				<div class = {style.container}>
+					{this.mappingT()}
+				</div>
 				);
-    }
+    		}
 }
