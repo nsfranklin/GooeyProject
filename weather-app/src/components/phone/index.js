@@ -8,7 +8,8 @@ import Details from '../Details';
 import WindD from '../windD';
 import Alerts from '../alerts';
 import Settings from '../settings';
-import WeatherScroll from '../weatherscoll'
+import WeatherScroll from '../weatherscoll';
+import Wicon from '../wicon';
 
 const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",  "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 var date = new Date();
@@ -25,6 +26,7 @@ export default class phone extends Component {
 		this.state.latlon = "";
 		this.state.city="";
 		this.state.feelslike = "";
+		this.state.cond = "";
 		this.state.forecastJSON = this.placeHolderArrayF();
 		this.state.currentJSON = this.placeHolderArrayC();
 		this.state.alertsJSON = new Array(1);
@@ -225,14 +227,14 @@ parseResponseLocation = (parsed_json) => {
 				<div class={style.warn}>
                 <Button number={ <i class ='material-icons'>warning</i> }  class={ style_iphone.button } clickFunction={ this.toggleAlerts.bind(this) }/ >
                 </div>
+								<div>
+								{this.state.showAlerts ? <Alerts alertsarr = {this.state.alertsJSON}/> : null}
+								</div>
                 <div class={style.searchT}>
                 <Button number={ <i class ='material-icons'>search</i> } class={ style_iphone.button } clickFunction={ this.toggleSearch.bind(this) }/>
                 </div>
 								{this.state.showSearch ? <Search class = { style.popup } setzmw = { this.setZmwFromSearch.bind(this) } other = { this.state.searchList } ting={this.getSearchResults.bind(this)} closePopup={this.toggleSearch.bind(this)} /> : null }
 
-				<div >{ this.state.locate }</div>
-				<div >{ this.state.temp }</div>
-				<div >{ this.state.cond }</div>
 
 
 				{this.state.showSettings ? <Settings/> : null}
@@ -240,7 +242,9 @@ parseResponseLocation = (parsed_json) => {
 				<div class={ style.details }>
 				<div class ={style.temperature}>{ this.state.temp }</div> <div class = {style.filled}></div>
 				<div class ={style.feelsLike}>feels like { this.state.feelslike }</div>
-				<div class = {style.conditions}>{ this.state.cond }</div>
+
+				<div class = {style.conditions}>{<Wicon weatherstate = {this.state.cond}/>}{ this.state.cond }</div>
+				<div class = {style.windtitle}>Wind</div>
 				<div class={ style.windD }>
 				<WeatherScroll dataf = {this.state.forecastJSON} days = {this.state.day}/>
 				</div>
@@ -251,7 +255,7 @@ parseResponseLocation = (parsed_json) => {
 				<div class={ style.windD2 }>
 				<WindD dataf={this.state.forecastJSON} days={this.state.day}/>
 				</div>
-
+				<div class = {style.detailtitle}>Details</div>
 				<div class = {style.detailsInfo}>
 				<Details datac={this.state.currentJSON} dataf={this.state.forecastJSON} days={this.state.day}/>
 				</div>

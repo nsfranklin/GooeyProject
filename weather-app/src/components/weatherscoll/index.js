@@ -1,6 +1,7 @@
 // import preact
 import { h, render, Component } from 'preact';
 import style from './style.less';
+import Wicon from '../wicon';
 
 export default class WeatherScroll extends Component {
 	mappingT(){
@@ -21,7 +22,7 @@ export default class WeatherScroll extends Component {
 					var hours = new Date(date.setTime( date.getTime() + i * 3600000 ));
 					output.push(
 					<div>
-						{temp[i]['temp']['metric']} {temp[i]['wx']}  {hours.getHours() + ":00"}
+						{temp[i]['temp']['metric']} {<Wicon weatherstate={temp[i]['wx']}/>}  {hours.getHours() + ":00"}
 					</div>
 					);
 				}

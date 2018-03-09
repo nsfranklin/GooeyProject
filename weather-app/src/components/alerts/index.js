@@ -1,6 +1,6 @@
 // import preact
 import { h, render, Component } from 'preact';
-import phone from '../phone'
+import style from './style'
 
 export default class Alerts extends Component {
 
@@ -17,7 +17,7 @@ export default class Alerts extends Component {
 
 	render() {
 		return (
-			<div>
+			<div class = {style.message}>
 				{this.alertMessage()}
 			</div>
 		);

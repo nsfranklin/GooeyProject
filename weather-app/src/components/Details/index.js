@@ -1,12 +1,13 @@
 // import preact
 import { h, render, Component } from 'preact';
+import style from './style';
 
 export default class Details extends Component {
 
 	render()
 	{
         return (
-		<div>
+		<div class={style.container}>
 		<p>Pressure: {this.props.dataf['hourly_forecast'][this.props.days*23]['mslp']['metric']}mbar</p>
 		<p>Wind Speed: {this.props.dataf['hourly_forecast'][this.props.days*23]['wspd']['metric']} kmh</p>
 		<p>Wind Direction: {this.props.dataf['hourly_forecast'][this.props.days*23]['wdir']['dir']}</p>
