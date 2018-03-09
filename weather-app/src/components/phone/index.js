@@ -132,7 +132,7 @@ parseResponseLocation = (parsed_json) => {
 	{
 		var parsed_json = this.state.forecastJSON;
 		var date = new Date();
-		var monthCalc = new Date(date.setTime( date.getTime() + this.state.date * 86400000 ));
+		var monthCalc = new Date(date.setTime( date.getTime() + param * 86400000 ));
 		var temp_c = this.state.forecastJSON['hourly_forecast'][param*23]['temp']['metric'];
 		var conditions = this.state.forecastJSON['hourly_forecast'][param*23]['condition'];
 		var popc = this.state.forecastJSON['hourly_forecast'][param*23]['pop'];
@@ -218,28 +218,28 @@ parseResponseLocation = (parsed_json) => {
 					<Button number={ dates[5].getDate()  }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 5) }/ >
 					<Button number={ dates[6].getDate()  }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 6) }/ >
 				</div>
-				<div class={ style.month }>{ this.state.monthString }{this.state.test}</div>
+				<div class={ style.month }>{ this.state.monthString }</div>
 				<Button number={ <i class ='material-icons'>warning</i> }  class={ style_iphone.button } clickFunction={ this.toggleAlerts.bind(this) }/ >
-
-
 				<Button number={ <i class ='material-icons'>search</i> } class={ style_iphone.button } clickFunction={ this.toggleSearch.bind(this) }/>
-				{this.state.showSearch ? <Search class = { style.popup } setzmw = { this.setZmwFromSearch.bind(this) } other = { this.state.searchList } ting={this.getSearchResults.bind(this)} text='Close Me' closePopup={this.toggleSearch.bind(this)} /> : null }
+				{this.state.showSearch ? <Search class = { style.popup } setzmw = { this.setZmwFromSearch.bind(this) } other = { this.state.searchList } ting={this.getSearchResults.bind(this)} closePopup={this.toggleSearch.bind(this)} /> : null }
 
-				<div >{ this.state.monthString }</div>
-				<div >{ this.state.locate }</div>
-				<div >{ this.state.temp }</div>
-				<div >{ this.state.cond }</div>
 
-				<div >feels like { this.state.feelslike }</div>
-				<div >{ this.state.pop }%chanche of precipitation today</div>
+
 				{this.state.showSettings ? <Settings/> : null}
 
 				<div class={ style.details }>
+				<div class ={style.temperature}>{ this.state.temp }</div> <div class = {style.filled}></div>
+				<div class ={style.feelsLike}>feels like { this.state.feelslike }</div>
+				<div class = {style.conditions}>{ this.state.cond }</div>
+				</div>
+
+				<div class = {style.weatherDetails}>{ this.state.pop } % chance of precipitation today</div>
 
 					<Details datac={this.state.currentJSON} dataf={this.state.forecastJSON} days={this.state.day}/>
-				</div>
+
 				<div class={ style.windD }>
 				<WeatherScroll dataf = {this.state.forecastJSON} days = {this.state.day}/>
+
 				<WindD dataf={this.state.forecastJSON} days={this.state.day}/>
 
 				</div>
