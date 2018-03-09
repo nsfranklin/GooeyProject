@@ -4,7 +4,7 @@ import style from './style';
 
 export default class Wicon extends Component {
 chooseIcon() {
-    switch(this.props.weatherstate) {
+    switch(this.props.weatherstate) { //switch to get correct icons
 
         case "Clear":
             return <img class='icon' src="/assets/weathericons/sunny-day.png"/>;
@@ -81,7 +81,7 @@ chooseIcon() {
     }
 }
 
-render(){
+render(){//returns and renders
             return(
                     <div class={style.iconcolour}>
                     {this.chooseIcon()}

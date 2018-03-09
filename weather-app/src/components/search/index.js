@@ -9,14 +9,14 @@ export default class Search extends Component
 
   }
   handleChange(e)
-  {
+  { //on change it calls the function from the parent and sets a state
     const value = e.target.value;
     this.props.ting(value); //it goes skrrraaa!
     this.state.items = this.props.other;
     console.log(value);
   }
   mappingF()
-  {
+  { // maps each search result to an output and returns it
     var items = this.props.other;
     var output = [];
     if(!this.isEmpty(items[0]))
@@ -27,7 +27,7 @@ export default class Search extends Component
         return output;
   }
   setZMW(param,e)
-  {
+  {//calls the function that sets the zmw state in the parent component
     console.log(this.props.other[param]['zmw']);
     this.props.closePopup();
     this.props.setzmw(this.props.other[param]['zmw']);
@@ -39,7 +39,7 @@ export default class Search extends Component
     }
     return true;
 }
-  render() {
+  render() { // render the search bar with a close button and suggestions
     return (
       <div class={style.container}>
         <div class={style.searchContainer}>

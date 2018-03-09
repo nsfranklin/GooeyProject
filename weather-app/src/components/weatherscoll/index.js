@@ -4,7 +4,7 @@ import style from './style.less';
 import Wicon from '../wicon';
 
 export default class WeatherScroll extends Component {
-	mappingT(){
+	mappingT(){ //maps weather info for each our into an array and returns it as a formatted array
 		var temp = new Array(24);
 		var date = new Date();
 
@@ -30,14 +30,14 @@ export default class WeatherScroll extends Component {
         return output;
   }
 
-	isEmpty(obj) {
+	isEmpty(obj) {// checks if object is empty
     for(var key in obj) {
         if(obj.hasOwnProperty(key))
             return false;
     }
     return true;
 }
-	render(){
+	render(){//render the mapping for weather data by hour
         		return(
 				<div class = {style.container}>
 					{this.mappingT()}

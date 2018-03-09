@@ -5,7 +5,7 @@ import style from './style';
 export default class windD extends Component {
 
 chooseIcon(arg) {
-	switch(arg) {
+	switch(arg) { //switch statement returning the direction
 
 		case "N":
 			return <img class='icon' src="/assets/directions/n.png"/>;
@@ -61,7 +61,7 @@ chooseIcon(arg) {
 	}
 }
 
-mappingT(){
+mappingT(){ //maps wind directions to an output array with proper formatting
 	var temp = new Array(24);
 	var date = new Date();
 	for(var x = 0; x < temp.length; x++)
@@ -89,7 +89,7 @@ mappingT(){
 			return output;
 }
 
-isEmpty(obj) {
+isEmpty(obj) { //checks if object is empty
 	for(var key in obj) {
 			if(obj.hasOwnProperty(key))
 					return false;
@@ -99,7 +99,7 @@ isEmpty(obj) {
 
 
 
-render(){
+render(){//render mapping
 			return(
 				<div class = {style.container}>
 					{this.mappingT()}

@@ -5,7 +5,7 @@ import style from './style';
 export default class Details extends Component {
 
 	render()
-	{
+	{ //render details
         return (
 		<div class={style.container}>
 		<p>Pressure: {this.props.dataf['hourly_forecast'][this.props.days*23]['mslp']['metric']}mbar</p>

@@ -5,7 +5,7 @@ import style from './style'
 export default class Alerts extends Component {
 
 	alertMessage()
-	{
+	{ //check for message and return it if there is one
 		if(this.props.alertsarr['alerts'] == 0)
 		{
 			return "There are no alerts in this area."
@@ -15,7 +15,7 @@ export default class Alerts extends Component {
 		}
 	}
 
-	render() {
+	render() { //render message
 		return (
 			<div class = {style.message}>
 				{this.alertMessage()}

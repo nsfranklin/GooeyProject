@@ -62,7 +62,7 @@ export default class phone extends Component {
 	this.fetchLocation();
 	}
 
-fetchLocation = () => {
+fetchLocation = () => { //fetches location data
 	var url = "http://api.wunderground.com/api/c8bdb7b86b273272/conditions/q/"+this.state.latlon+".json";
 	$.ajax({
 		url: url,
@@ -122,7 +122,7 @@ parseResponseLocation = (parsed_json) => { //formats api call city
 		})
 	}
 
-	parseResponseAlerts = (parsed_json) => {
+	parseResponseAlerts = (parsed_json) => { //sets alerts state
 		this.setState({
 			alertsJSON : parsed_json,
 			test : true
@@ -130,7 +130,7 @@ parseResponseLocation = (parsed_json) => { //formats api call city
 		this.handleTodayClick(0,0);
 	}
 
-	handleForecastClick(param, e)
+	handleForecastClick(param, e) // sets states on button click for forecast
 	{
 		var parsed_json = this.state.forecastJSON;
 		var date = new Date();
@@ -151,7 +151,7 @@ parseResponseLocation = (parsed_json) => { //formats api call city
 
 	}
 
-	handleTodayClick(param, e)
+	handleTodayClick(param, e)// sets state for current date
 	{
 		var parsed_json = this.state.currentJSON;
 		var temp_c = parsed_json['current_observation']['temp_c'];
@@ -169,20 +169,20 @@ parseResponseLocation = (parsed_json) => { //formats api call city
 			day : param
 			});
 	}
-
-	toggleSearch() {
+ 
+	toggleSearch() {  //toggle search overlay state
     this.setState({
       showSearch: !this.state.showSearch
     });
 	}
 
-	toggleSettings() {
+	toggleSettings() { //toggle settings overlay state
     this.setState({
       showSettings: !this.state.showSettings
     });
 	}
 
-	toggleAlerts() {
+	toggleAlerts() { //toggle alerts overlay states
     this.setState({
       showAlerts: !this.state.showAlerts
     });
@@ -243,7 +243,8 @@ parseResponseLocation = (parsed_json) => { //formats api call city
 				<div class ={style.temperature}>{ this.state.temp }</div> <div class = {style.filled}></div>
 				<div class ={style.feelsLike}>feels like { this.state.feelslike }</div>
 
-				<div class = {style.conditions}>{<Wicon weatherstate = {this.state.cond}/>}{ this.state.cond }</div>
+				<div class = {style.conditions}>{<Wicon weatherstate = {this.state.cond}/>}{ this.state.cond }<p>{this.state.locationString}</p></div>
+				
 				<div class = {style.windtitle}>Wind</div>
 				<div class={ style.windD }>
 				<WeatherScroll dataf = {this.state.forecastJSON} days = {this.state.day}/>
@@ -264,20 +265,20 @@ parseResponseLocation = (parsed_json) => { //formats api call city
 			);
 		}
 
-		getSearchResults(arg)
+		getSearchResults(arg) //sets states for search term
 		{
 			this.setState({ searchTerm : arg });
 			this.fetchSearchResults();
 		}
 
-		setZmwFromSearch(arg)
+		setZmwFromSearch(arg) //sets city code (zmw value)
 		{
 			this.setState({ zmw : arg });
 			this.setJSON();
 		}
 
 
-		fetchSearchResults = () => {
+		fetchSearchResults = () => {  //fetchs search api
 			var url = "http://autocomplete.wunderground.com/aq?query="+this.state.searchTerm;
 			$.ajax({
 				url: url,
@@ -292,12 +293,12 @@ parseResponseLocation = (parsed_json) => { //formats api call city
 		}
 
 
-		parseSearchList = (parsed_json) => {
+		parseSearchList = (parsed_json) => { //parse search
 			this.setState({ searchList : parsed_json['RESULTS'] });
 		}
 
 
-	parseResponseConditions = (parsed_json) => {
+	parseResponseConditions = (parsed_json) => {  //parse current info api data
 		this.setState({
 			currentJSON : parsed_json,
 			current : "current"
@@ -305,7 +306,7 @@ parseResponseLocation = (parsed_json) => { //formats api call city
 		this.fetchWeatherDataForecast();
 	}
 
-	parseResponseForecast = (parsed_json) => {
+	parseResponseForecast = (parsed_json) => { //parse forecast info api data
 		this.setState({
 			forecastJSON : parsed_json,
 			current : "forecast"
@@ -314,7 +315,7 @@ parseResponseLocation = (parsed_json) => { //formats api call city
 		this.fetchWeatherAlerts();
 	}
 
-	placeHolderArrayC() //test data (killed to many keys buy accident)
+	placeHolderArrayC() //test data (killed to many keys by accident)
 	{
 		return {"response":{"version":"0.1","termsofService":"http://www.wunderground.com/weather/api/d/terms.html","features":{"conditions":1}},"current_observation":{"image":{"url":"http://icons.wxug.com/graphics/wu2/logo_130x80.png","title":"Weather Underground","link":"http://www.wunderground.com"},"display_location":{"full":"Stoke Newington, United Kingdom","city":"Stoke Newington","state":"GLA","state_name":"United Kingdom","country":"UK","country_iso3166":"GB","zip":"00000","magic":"52","wmo":"03779","latitude":"51.56000137","longitude":"-0.08000000","elevation":"25.9"},"observation_location":{"full":"London, Stoke Newington, GLA","city":"London, Stoke Newington","state":"GLA","country":"UK","country_iso3166":"GB","latitude":"51.565804","longitude":"-0.088090","elevation":"95 ft"},"estimated":{},"station_id":"IGLASTOK5","observation_time":"Last Updated on March 8, 4:26 PM GMT","observation_time_rfc822":"Thu, 08 Mar 2018 16:26:42 +0000","observation_epoch":"1520526402","local_time_rfc822":"Thu, 08 Mar 2018 16:32:29 +0000","local_epoch":"1520526749","local_tz_short":"GMT","local_tz_long":"Europe/London","local_tz_offset":"+0000","weather":"Partly Cloudy","temperature_string":"51.1 F (10.6 C)","temp_f":51.1,"temp_c":10.6,"relative_humidity":"49%","wind_string":"From the NE at 2.5 MPH Gusting to 8.7 MPH","wind_dir":"NE","wind_degrees":38,"wind_mph":2.5,"wind_gust_mph":"8.7","wind_kph":4,"wind_gust_kph":"14.0","pressure_mb":"997","pressure_in":"29.44","pressure_trend":"0","dewpoint_string":"33 F (0 C)","dewpoint_f":33,"dewpoint_c":0,"heat_index_string":"NA","heat_index_f":"NA","heat_index_c":"NA","windchill_string":"NA","windchill_f":"NA","windchill_c":"NA","feelslike_string":"51.1 F (10.6 C)","feelslike_f":"51.1","feelslike_c":"10.6","visibility_mi":"N/A","visibility_km":"N/A","solarradiation":"--","UV":"-1","precip_1hr_string":"-999.00 in ( 0 mm)","precip_1hr_in":"-999.00","precip_1hr_metric":" 0","precip_today_string":"0.06 in (2 mm)","precip_today_in":"0.06","precip_today_metric":"2","icon":"partlycloudy","icon_url":"http://icons.wxug.com/i/c/k/partlycloudy.gif","forecast_url":"http://www.wunderground.com/global/stations/03779.html","history_url":"http://www.wunderground.com/weatherstation/WXDailyHistory.asp?ID=IGLASTOK5","ob_url":"http://www.wunderground.com/cgi-bin/findweather/getForecast?query=51.565804,-0.088090","nowcast":""}};
 	}
