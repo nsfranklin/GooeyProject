@@ -132,7 +132,7 @@ parseResponseLocation = (parsed_json) => {
 	{
 		var parsed_json = this.state.forecastJSON;
 		var date = new Date();
-		var monthCalc = new Date(date.setTime( date.getTime() + this.state.date * 86400000 ));
+		var monthCalc = new Date(date.setTime( date.getTime() + param * 86400000 ));
 		var temp_c = this.state.forecastJSON['hourly_forecast'][param*23]['temp']['metric'];
 		var conditions = this.state.forecastJSON['hourly_forecast'][param*23]['condition'];
 		var popc = this.state.forecastJSON['hourly_forecast'][param*23]['pop'];
@@ -218,6 +218,7 @@ parseResponseLocation = (parsed_json) => {
 					<Button number={ dates[5].getDate()  }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 5) }/ >
 					<Button number={ dates[6].getDate()  }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 6) }/ >
 				</div>
+
 				
 				<div class={ style.month }>{ this.state.monthString }{this.state.test}</div>
 				
@@ -234,16 +235,24 @@ parseResponseLocation = (parsed_json) => {
 				<div >{ this.state.temp }</div>
 				<div >{ this.state.cond }</div>
 
-				<div >feels like { this.state.feelslike }</div>
-				<div >{ this.state.pop }%chanche of precipitation today</div>
+
 				{this.state.showSettings ? <Settings/> : null}
 
 				<div class={ style.details }>
+				<div class ={style.temperature}>{ this.state.temp }</div> <div class = {style.filled}></div>
+				<div class ={style.feelsLike}>feels like { this.state.feelslike }</div>
+				<div class = {style.conditions}>{ this.state.cond }</div>
+				</div>
+
+				<div class = {style.weatherDetails}>{ this.state.pop } % chance of precipitation today</div>
 
 					<Details datac={this.state.currentJSON} dataf={this.state.forecastJSON} days={this.state.day}/>
-				</div>
+
 				<div class={ style.windD }>
 				<WeatherScroll dataf = {this.state.forecastJSON} days = {this.state.day}/>
+				</div>				
+
+				<div class={ style.windD2 }>
 				<WindD dataf={this.state.forecastJSON} days={this.state.day}/>
 
 				</div>

@@ -1,4 +1,6 @@
 import { h, render, Component } from 'preact';
+import style from './style';
+
 export default class Search extends Component
 {
   constructor(props)
@@ -9,7 +11,7 @@ export default class Search extends Component
   handleChange(e)
   {
     const value = e.target.value;
-    this.props.ting(value);
+    this.props.ting(value); //it goes skrrraaa!
     this.state.items = this.props.other;
     console.log(value);
   }
@@ -19,7 +21,7 @@ export default class Search extends Component
     var output = [];
     if(!this.isEmpty(items[0]))
     {
-      for(var i = 0; i < items.length; i++) {output.push(<button onClick={ this.setZMW.bind(this,i) }> {items[i]['name']} </button>);}
+      for(var i = 0; i < items.length; i++) {output.push(<button class={style.option} onClick={ this.setZMW.bind(this,i) }> {items[i]['name']} </button>);}
     }
 
         return output;
@@ -27,6 +29,7 @@ export default class Search extends Component
   setZMW(param,e)
   {
     console.log(this.props.other[param]['zmw']);
+    this.props.closePopup();
     this.props.setzmw(this.props.other[param]['zmw']);
   }
   isEmpty(obj) {
@@ -38,12 +41,15 @@ export default class Search extends Component
 }
   render() {
     return (
-      <div className='popup'>
-        <div className='popup_inner'>
-        <input placeholder={ "Location name" } onKeyDown={ this.handleChange.bind(this) }></input>
+      <div class={style.container}>
+        <div class={style.searchContainer}>
+        <div class = {style.searchbarcontainer}>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <input class={style.searchbar} placeholder={ "Location name" } onKeyDown={ this.handleChange.bind(this) }></input>
+        <button class={style.closesearch} onClick={this.props.closePopup}><i class="material-icons">clear</i></button>
+        </div>
           <h1>{this.props.text}</h1>
-          <div>{ this.mappingF() }</div>
-        <button onClick={this.props.closePopup}></button>
+          <div class = {style.results}>{ this.mappingF() }</div>
 
         </div>
       </div>
