@@ -1,5 +1,6 @@
 // import preact
 import { h, render, Component } from 'preact';
+import style from './style';
 
 export default class windD extends Component {
 
@@ -76,7 +77,7 @@ mappingT(){
 				date = new Date();
 				var hours = new Date(date.setTime( date.getTime() + i * 3600000 ));
 				output.push(
-				<div class='windD'>
+				<div>
 					<p> {temp[i]['wspd']['metric']} </p>
 					<p> {temp[i]['wdir']['dir']} </p>
 					<p>{this.chooseIcon(temp[i]['wdir']['dir'])}</p>
@@ -100,8 +101,8 @@ isEmpty(obj) {
 
 render(){
 			return(
-				<div>
-					<p>{this.mappingT()}</p>
+				<div class = {style.container}>
+					{this.mappingT()}
 				</div>
 			);
 	}

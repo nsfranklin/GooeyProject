@@ -4,7 +4,6 @@ import phone from '../phone'
 
 export default class Settings extends Component {
 
-
 	render() {
 		return (
 			<div>
