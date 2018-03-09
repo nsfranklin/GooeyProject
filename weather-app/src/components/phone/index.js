@@ -218,11 +218,21 @@ parseResponseLocation = (parsed_json) => {
 					<Button number={ dates[5].getDate()  }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 5) }/ >
 					<Button number={ dates[6].getDate()  }  class={ style_iphone.button } clickFunction={ this.handleForecastClick.bind(this, 6) }/ >
 				</div>
-				<div class={ style.month }>{ this.state.monthString }</div>
-				<Button number={ <i class ='material-icons'>warning</i> }  class={ style_iphone.button } clickFunction={ this.toggleAlerts.bind(this) }/ >
-				<Button number={ <i class ='material-icons'>search</i> } class={ style_iphone.button } clickFunction={ this.toggleSearch.bind(this) }/>
-				{this.state.showSearch ? <Search class = { style.popup } setzmw = { this.setZmwFromSearch.bind(this) } other = { this.state.searchList } ting={this.getSearchResults.bind(this)} closePopup={this.toggleSearch.bind(this)} /> : null }
 
+
+				<div class={ style.month }>{ this.state.monthString }</div>
+
+				<div class={style.warn}>
+                <Button number={ <i class ='material-icons'>warning</i> }  class={ style_iphone.button } clickFunction={ this.toggleAlerts.bind(this) }/ >
+                </div>
+                <div class={style.searchT}>
+                <Button number={ <i class ='material-icons'>search</i> } class={ style_iphone.button } clickFunction={ this.toggleSearch.bind(this) }/>
+                </div>
+								{this.state.showSearch ? <Search class = { style.popup } setzmw = { this.setZmwFromSearch.bind(this) } other = { this.state.searchList } ting={this.getSearchResults.bind(this)} closePopup={this.toggleSearch.bind(this)} /> : null }
+
+				<div >{ this.state.locate }</div>
+				<div >{ this.state.temp }</div>
+				<div >{ this.state.cond }</div>
 
 
 				{this.state.showSettings ? <Settings/> : null}
@@ -237,7 +247,6 @@ parseResponseLocation = (parsed_json) => {
 				</div>
 
 				<div class = {style.weatherDetails}>{ this.state.pop } % chance of precipitation today</div>
-
 
 				<div class={ style.windD2 }>
 				<WindD dataf={this.state.forecastJSON} days={this.state.day}/>
